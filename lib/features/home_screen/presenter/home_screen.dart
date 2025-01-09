@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return [
                   SliverAppBar(
                     expandedHeight: expandedHeight,
-                    toolbarHeight: 0, // Eliminamos el espacio del toolbar
+                    toolbarHeight: 0,
                     collapsedHeight: 0,
                     clipBehavior: Clip.none,
                     title: AnimatedOpacity(
@@ -48,42 +48,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: lerpDouble(110.0, 0.0, _scrollFactor),
                         color: Colors.transparent,
                         clipBehavior: Clip.none,
-                        child: Stack(
-                          fit: StackFit.expand,
-                          clipBehavior: Clip.none,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Positioned(
-                              top: lerpDouble(MediaQuery.sizeOf(context).width * 0.15, 0.0, _scrollFactor),
-                              left: 0,
-                              child: Text(
-                                'Blog',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                      fontSize: lerpDouble(32.0, 0.0, _scrollFactor),
-                                    ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: lerpDouble(MediaQuery.sizeOf(context).width * 0.0, 0.0, _scrollFactor),
-                              left: lerpDouble(0.0, MediaQuery.of(context).size.width * 0.14, _scrollFactor),
-                              child: Transform.translate(
-                                offset: Offset(
-                                  0,
-                                  lerpDouble(0.0, -20.0, _scrollFactor)!,
-                                ),
-                                child: Opacity(
-                                  opacity: lerpDouble(1.0, 0.0, _scrollFactor)!,
-                                  child: Text(
-                                    'My Blog app',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge!
-                                        .copyWith(
-                                          fontSize: 14.0,
-                                        ),
+                            Text(
+                              'Blog',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                    fontSize: lerpDouble(32.0, 0.0, _scrollFactor),
                                   ),
+                            ),
+                            Transform.translate(
+                              offset: Offset(
+                                0,
+                                lerpDouble(0.0, -20.0, _scrollFactor)!,
+                              ),
+                              child: Opacity(
+                                opacity: lerpDouble(1.0, 0.0, _scrollFactor)!,
+                                child: Text(
+                                  'My Blog app',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge!
+                                      .copyWith(
+                                        fontSize: 14.0,
+                                      ),
                                 ),
                               ),
                             ),
@@ -100,10 +92,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Container(
                         height: 48.0, // Altura fija para el TabBar
                         color: Colors.white,
-                        child: TabBar(
+                        child: const TabBar(
                           labelPadding: EdgeInsets.zero, // Eliminamos el padding del label
                           padding: EdgeInsets.zero, // Eliminamos el padding del TabBar
-                          indicator: const UnderlineTabIndicator(
+                          indicator: UnderlineTabIndicator(
                             borderSide: BorderSide(
                               color: Colors.black,
                               width: 2.0,
@@ -111,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           labelColor: Colors.black,
                           unselectedLabelColor: Colors.grey,
-                          tabs: const [
+                          tabs: [
                             Tab(text: 'My feed'),
                             Tab(text: 'My Favorites'),
                           ],
