@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:my_blog_app/features/home_screen/data/models/post_model.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
-    required this.index,
+    required this.post,
   });
 
-  final int index;
+  final PostModel post;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
-        color: Colors.grey,
+        color: Colors.transparent,
         width: double.infinity,
         height: double.infinity,
         child: Card(
@@ -26,8 +27,8 @@ class PostCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 24.0),
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, top: 24.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -51,24 +52,37 @@ class PostCard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: constraints.maxHeight * 0.04,
+                          height: constraints.maxHeight * 0.02,
                         ),
                         Text(
-                          'Somnio Software at Google I/O 2024: AI, Flutter, and the road ahead for App Development',
-                          style:
-                              Theme.of(context).textTheme.titleLarge!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          // 'Somnio Software at Google I/O 2024: AI, Flutter, and the road ahead for App Development ajkdsnfjkadsnfjkads',
+                          post.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                                height: 1.1
+                              ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
+                          softWrap: true,
                         ),
-                        // descripcion
-                        Text(
-                          'Unlock the power of AI with generative media models & enhanced search! Google I/O 2024 unveiled a developer-focused future with Gemini & advancements in Flutter.',
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                        ),
-                        // button read more
+                        Container(
+                          width: double.maxFinite,
+                          height: constraints.maxHeight * 0.2,
+                          child: Text(
+                            post.body,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.w300,
+                                ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                          ),
+                        ),Spacer(),
                         TextButton.icon(
                           onPressed: () {},
                           label: Text(

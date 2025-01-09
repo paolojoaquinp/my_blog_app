@@ -33,16 +33,19 @@ class _Body extends StatelessWidget {
           );
         }
         if (state is AllPostsDataLoadedState) {
-          return ListView.builder(
-            itemCount: state.postsResponse.length,
-            itemBuilder: (context, index) {
-              final post = state.postsResponse[index];
-              return SizedBox(
-                height: 520,
-                width: double.maxFinite,
-                child: PostCard(index: index),
-              );
-            },
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.05),
+            child: ListView.builder(
+              itemCount: state.postsResponse.length,
+              itemBuilder: (context, index) {
+                final post = state.postsResponse[index];
+                return SizedBox(
+                  height: 500,
+                  width: double.maxFinite,
+                  child: PostCard(post: post),
+                );
+              },
+            ),
           );
         } else {
           return SizedBox.shrink();
