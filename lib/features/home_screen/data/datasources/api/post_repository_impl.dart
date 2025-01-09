@@ -13,7 +13,8 @@ class PostRepositoryImpl implements PostRepository {
       
       if (response.statusCode == 200) {
         final data = response.data as List<dynamic>;
-        return Ok(data.map((post) => PostModel.fromJson(post)).toList());
+        final postsResponse = data.map((post) => PostModel.fromJson(post)).toList();
+        return Ok(postsResponse);
       }
       
       return Err(DioException(
