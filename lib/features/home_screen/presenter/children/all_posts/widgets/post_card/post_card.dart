@@ -14,6 +14,7 @@ class PostCard extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         color: Colors.transparent,
+        margin: EdgeInsets.only(bottom: 20),
         width: double.infinity,
         height: double.infinity,
         child: Card(
@@ -22,7 +23,7 @@ class PostCard extends StatelessWidget {
                 Radius.circular(20.0),
               ),
             ),
-            elevation: 12.0,
+            elevation: 6.0,
             child: Column(
               children: [
                 Expanded(
