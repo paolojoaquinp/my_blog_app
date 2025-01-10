@@ -57,7 +57,16 @@ class PostCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            IconButton(onPressed: onPressed, icon: Icon(Icons.favorite_outline),),
+                            IconButton(
+                              onPressed: onPressed,
+                              icon: Icon(
+                                post.isFavorite!
+                                ? Icons.favorite
+                                : Icons.favorite_outline,
+                                color: post.isFavorite!
+                                ? Colors.red : Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -70,9 +79,7 @@ class PostCard extends StatelessWidget {
                               .textTheme
                               .titleLarge!
                               .copyWith(
-                                fontWeight: FontWeight.bold,
-                                height: 1.1
-                              ),
+                                  fontWeight: FontWeight.bold, height: 1.1),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 4,
                           softWrap: true,
@@ -91,7 +98,8 @@ class PostCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 5,
                           ),
-                        ),Spacer(),
+                        ),
+                        Spacer(),
                         TextButton.icon(
                           onPressed: () {},
                           label: Text(
