@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_blog_app/core/constants/app_colors.dart';
+import 'package:my_blog_app/core/constants/app_strings.dart';
 import 'package:my_blog_app/features/home_screen/data/models/post_model.dart';
 
 class PostCard extends StatelessWidget {
@@ -100,7 +101,7 @@ class PostCard extends StatelessWidget {
                         TextButton.icon(
                           onPressed: () {},
                           label: Text(
-                            'Read More',
+                            AppStrings.readMoreLabelPostCard,
                             textAlign: TextAlign.left,
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(

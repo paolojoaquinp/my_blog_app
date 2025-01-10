@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_blog_app/core/config/text_theme.dart';
+import 'package:my_blog_app/core/constants/app_colors.dart';
 import 'package:my_blog_app/core/constants/app_strings.dart';
 import 'package:my_blog_app/core/helpers/hive_helper.dart';
 import 'package:my_blog_app/features/home_screen/data/datasources/api/post_repository_impl.dart';
@@ -49,7 +50,7 @@ class _Body extends StatelessWidget {
         if (notification is ScrollUpdateNotification &&
             notification.depth == 0) {
           final newScrollFactor =
-              (notification.metrics.pixels / 120.0).clamp(0.0, 1.0);
+              (notification.metrics.pixels / 100.0).clamp(0.0, 1.0);
           scrollFactorNotifier.value = newScrollFactor;
         }
         return true;
@@ -122,14 +123,14 @@ class _Body extends StatelessWidget {
                       child: TabBar(
                         labelPadding:
                             const EdgeInsets.symmetric(horizontal: 16),
-                        indicator: const BubbleTabIndicator(
-                          color: Colors.black,
+                        indicator: BubbleTabIndicator(
+                          color: AppColors.midnightBlue,
                           height: 35,
                           radius: 20,
                           padding: EdgeInsets.symmetric(horizontal: 1),
                         ),
                         labelColor: Colors.white,
-                        unselectedLabelColor: Colors.black,
+                        unselectedLabelColor: AppColors.midnightBlue,
                         tabs: [
                           Container(
                             alignment: Alignment.center,

@@ -4,4 +4,5 @@ class AppStrings {
 
   static String tabBarFeedTitle = 'My feed';
   static String tabBarFavoritesTitle = 'My Favorites';
+  static String readMoreLabelPostCard = 'Read More';
 }
