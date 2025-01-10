@@ -17,15 +17,28 @@ class AllPostsLoadingState extends AllPostsState {
 }
 
 class AllPostsDataLoadedState extends AllPostsState {
+  final List<PostModel> postsResponse;
+  final bool isLoadingMore;
+
   const AllPostsDataLoadedState({
     required this.postsResponse,
+    required this.isLoadingMore,
   });
 
-  final List<PostModel> postsResponse;
+  AllPostsDataLoadedState copyWith({
+    List<PostModel>? postsResponse,
+    bool? isLoadingMore,
+  }) {
+    return AllPostsDataLoadedState(
+      postsResponse: postsResponse ?? this.postsResponse,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+    );
+  }
 
   @override
-  List<Object> get props => [postsResponse];
+  List<Object> get props => [postsResponse, isLoadingMore];
 }
+
 
 class AllPostsEmptyDataState extends AllPostsState {
   const AllPostsEmptyDataState();

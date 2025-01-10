@@ -10,24 +10,23 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<Result<List<PostModel>, DioException>> getAllPosts() async {
     try {
-      final response = await _dio.get('https://jsonplaceholder.typicode.com/posts');
-      
+      final response =
+          await _dio.get('https://jsonplaceholder.typicode.com/posts');
+
       if (response.statusCode == 200) {
         final data = response.data as List<dynamic>;
         final favoriteIds = hiveHelper.getAllFavoriteIds();
 
         final postsResponse = data.map((post) {
           final element = PostModel.fromJson(post);
-          // verify is favorite 
+          // verify is favorite
           print("$favoriteIds");
           final isFavorite = favoriteIds.contains(element.id.toString());
-          return element.copyWith(
-            isFavorite: isFavorite
-          );
+          return element.copyWith(isFavorite: isFavorite);
         }).toList();
         return Ok(postsResponse);
       }
-      
+
       return Err(DioException(
         requestOptions: response.requestOptions,
         response: response,
@@ -36,6 +35,44 @@ class PostRepositoryImpl implements PostRepository {
       ));
     } on DioException catch (e) {
       return Err(e);
+    }
+  }
+
+  @override
+  Future<Result<List<PostModel>, String>> getPaginatedPosts({
+    required int page,
+    required int limit,
+  }) async {
+    try {
+      // Calculate start and end indices for pagination
+      final startIndex = (page - 1) * limit;
+
+      final response = await _dio.get(
+        'https://jsonplaceholder.typicode.com/posts',
+        queryParameters: {
+          '_start': startIndex,
+          '_limit': limit,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = response.data as List<dynamic>;
+        final favoriteIds = hiveHelper.getAllFavoriteIds();
+
+        final postsResponse = data.map((post) {
+          final element = PostModel.fromJson(post);
+          final isFavorite = favoriteIds.contains(element.id.toString());
+          return element.copyWith(isFavorite: isFavorite);
+        }).toList();
+
+        return Ok(postsResponse);
+      }
+
+      return Err('Failed to fetch posts: ${response.statusCode}');
+    } on DioException catch (e) {
+      return Err(e.message ?? 'An error occurred while fetching posts');
+    } catch (e) {
+      return Err('Unexpected error: $e');
     }
   }
 }

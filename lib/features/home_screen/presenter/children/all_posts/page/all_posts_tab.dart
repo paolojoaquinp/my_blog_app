@@ -5,6 +5,7 @@ import 'package:my_blog_app/features/home_screen/presenter/children/favorite_pos
 import 'package:my_blog_app/features/shared/widgets/post_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// all_posts_tab.dart
 class AllPostsTab extends StatelessWidget {
   const AllPostsTab({super.key});
 
@@ -36,33 +37,53 @@ class _Body extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.sizeOf(context).width * 0.05),
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: state.postsResponse.length,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                final post = state.postsResponse[index];
-                final favoritesBloc = context.read<FavoritesBloc>();
-                return SizedBox(
-                  height: 510,
-                  width: double.maxFinite,
-                  child: PostCard(
-                    post: post,
-                    onPressed: () {
-                      favoritesBloc.add(
-                        AddFavoriteEvent(
-                          idPost: post.id,
-                          onEnd: () {
-                            context
-                                .read<AllPostsBloc>()
-                                .add(const AllPostsLoadDataEvent());
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                );
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (scrollInfo) {
+                if (scrollInfo is ScrollUpdateNotification) {
+                  context.read<AllPostsBloc>().add(
+                    UpdateScrollPositionEvent(
+                      scrollPosition: scrollInfo.metrics.pixels,
+                      maxScrollExtent: scrollInfo.metrics.maxScrollExtent,
+                    ),
+                  );
+                }
+                return true;
               },
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: state.postsResponse.length + (state.isLoadingMore ? 1 : 0),
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  if (index == state.postsResponse.length && state.isLoadingMore) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+
+                  final post = state.postsResponse[index];
+                  final favoritesBloc = context.read<FavoritesBloc>();
+                  return SizedBox(
+                    height: 510,
+                    width: double.maxFinite,
+                    child: PostCard(
+                      post: post,
+                      onPressed: () {
+                        favoritesBloc.add(
+                          AddFavoriteEvent(
+                            idPost: post.id,
+                            onEnd: () {
+                              context
+                                  .read<AllPostsBloc>()
+                                  .add(const AllPostsLoadDataEvent());
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           );
         } else {

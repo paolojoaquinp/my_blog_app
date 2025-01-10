@@ -4,4 +4,8 @@ import 'package:oxidized/oxidized.dart';
 
 abstract class PostRepository {
   Future<Result<List<PostModel>, DioException>> getAllPosts();
+   Future<Result<List<PostModel>, String>> getPaginatedPosts({
+    required int page,
+    required int limit,
+  });
 }
