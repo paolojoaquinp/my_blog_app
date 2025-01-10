@@ -11,7 +11,9 @@ An app to watch the newest posts about the tech releases and innovations. Choose
 
 ## Screenshots
 Splash Screen & Home Screen
-![App Screenshot](./screenshots/screenshot-1.png)
+
+<img src="./screenshots/screenshot-1.png" alt="App Screenshot" style="width:370px;"/>
+
 
 ## Instructions
 
@@ -73,8 +75,7 @@ Experienced Software Engineer with a strong focus on Flutter, bringing over 4 ye
 table. Distinguished as Flutter La Paz Lead, with notable contributions, including Staffing at Multiple
 events in GDG La Paz and Fluter La Paz. Acknowledged speaker at various events in Ecuador, Uruguay
 and Bolivia, such as Flutter Ecuador, Flutter Uruguay, DevFest and Google IO. Successfully lead the
-development of FireGuard LP, a robust platform of forest fire prevention in Flutter. Currently, a
-dedicated Flutter Developer for CAWU STCA, a Canadian Company. Proactive and solution-oriented,
+development of FireGuard LP, a robust platform of forest fire prevention in Flutter. Proactive and solution-oriented,
 showcasing exceptional communication skills and leadership in managing small team projects.
 
 ## License
