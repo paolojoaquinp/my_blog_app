@@ -22,8 +22,8 @@ class AllPostsBloc extends Bloc<AllPostsEvent, AllPostsState> {
     AllPostsInitialEvent event,
     Emitter<AllPostsState> emit,
   ) async {
-    final results = await postRepository.getAllPosts();
     emit(AllPostsLoadingState());
+    final results = await postRepository.getAllPosts();
 
     results.when(
       ok: (data) {

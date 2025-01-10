@@ -18,17 +18,17 @@ class HiveHelper {
     box = await Hive.openBox('favorites');
   }
 
-  Future<void> addFavorite(String restaurantId) async {
+  Future<void> addFavorite(String postId) async {
     List<String> favorites = getAllFavoriteIds();
-    if (!favorites.contains(restaurantId)) {
-      favorites.add(restaurantId);
+    if (!favorites.contains(postId)) {
+      favorites.add(postId);
       await box.put('favoriteIds', favorites);
     }
   }
 
-  Future<void> removeFavorite(String restaurantId) async {
+  Future<void> removeFavorite(String postId) async {
     List<String> favorites = getAllFavoriteIds();
-    favorites.remove(restaurantId);
+    favorites.remove(postId);
     await box.put('favoriteIds', favorites);
   }
 

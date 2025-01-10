@@ -6,7 +6,10 @@ class PostModel extends PostEntity {
     required super.id,
     required super.title,
     required super.body,
+    this.isFavorite,
   });
+
+  final bool? isFavorite;
 
   Map<String, dynamic> toJson() {
     return {
@@ -23,6 +26,22 @@ class PostModel extends PostEntity {
       id: json['id'] as int? ?? 0,
       title: json['title'] as String? ?? '',
       body: json['body'] as String? ?? '',
+    );
+  }
+  
+  PostModel copyWith({
+    int? userId,
+    int? id,
+    String? title,
+    String? body,
+    bool? isFavorite,
+  }) {
+    return PostModel(
+      userId: userId ?? this.userId,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 }
