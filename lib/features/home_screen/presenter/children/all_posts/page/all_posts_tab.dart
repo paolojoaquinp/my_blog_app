@@ -12,7 +12,7 @@ class AllPostsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<AllPostsBloc>(
       create: (context) => AllPostsBloc(postRepository: PostRepositoryImpl())..add(const AllPostsInitialEvent()),
-      child: Scaffold(
+      child: const Scaffold(
         body: _Body(),
       ),
     );
@@ -20,9 +20,7 @@ class AllPostsTab extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({
-    super.key,
-  });
+  const _Body();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,9 @@ class _Body extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.05),
             child: ListView.builder(
+              scrollDirection: Axis.vertical,
               itemCount: state.postsResponse.length,
+              padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 final post = state.postsResponse[index];
                 final favoritesBloc = context.read<FavoritesBloc>();
