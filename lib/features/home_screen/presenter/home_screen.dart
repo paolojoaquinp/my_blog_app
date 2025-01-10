@@ -22,8 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SafeArea(
           child: NotificationListener<ScrollNotification>(
             onNotification: (notification) {
-              if (notification is ScrollUpdateNotification &&
-                  notification.depth == 0) {
+              if (notification is ScrollUpdateNotification) {
                 setState(() {
                   _scrollFactor =
                       (notification.metrics.pixels / 120.0).clamp(0.0, 1.0);
@@ -85,8 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     centerTitle: false,
                     pinned: true,
-                    snap: true,
-                    floating: true,
+                    floating: false,
+                    snap: false,
+                    primary: true,
+                    stretch: true,
                     bottom: PreferredSize(
                       preferredSize: const Size.fromHeight(48.0),
                       child: Container(
