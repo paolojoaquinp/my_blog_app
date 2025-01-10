@@ -61,13 +61,34 @@ class _Body extends StatelessWidget {
                   }
                   final post = state.postsResponse[index];
                   final favoritesBloc = context.read<FavoritesBloc>();
+                  if (index >= 3) {
+                    return SizedBox(
+                            height: 510,
+                            width: double.maxFinite,
+                            child: PostCard(
+                              post: post,
+                              onPressed: () {
+                                favoritesBloc.add(
+                                  AddFavoriteEvent(
+                                    idPost: post.id,
+                                    onEnd: () {
+                                      context
+                                          .read<AllPostsBloc>()
+                                          .add(const AllPostsLoadDataEvent());
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                  }
                   return TweenAnimationBuilder(
                   tween: Tween<double>(begin: 0, end: 1),
                   curve: Curves.easeInOut,
                   duration: Duration(milliseconds: 1200 + (index * 200)),
                     builder: (context, animation, child) {
                       return Transform.translate(
-                        offset: Offset(0.0, MediaQuery.sizeOf(context).height * (1 - animation)),
+                        offset: Offset(0.0, (MediaQuery.sizeOf(context).height*0.7) * (1 - animation)),
                         child: Opacity(
                           opacity: animation,
                           child: SizedBox(
