@@ -43,11 +43,9 @@ void main() {
   group('AllPostsBloc', () {
     late PostRepository postsRepository;
     late AllPostsBloc allPostsBloc;
-    late HiveHelper hiveHelper;
 
     setUp(() {
       postsRepository = MockPostsRepository();
-      hiveHelper = MockHiveHelper();
       allPostsBloc = AllPostsBloc(
         postRepository: postsRepository,
       );
