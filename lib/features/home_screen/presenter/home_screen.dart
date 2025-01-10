@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: TabBar(
                           labelPadding:
                               const EdgeInsets.symmetric(horizontal: 16),
-                          indicator: BubbleTabIndicator(
+                          indicator: const BubbleTabIndicator(
                             color: Colors.black,
                             height: 35,
                             radius: 20,
@@ -107,11 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             Container(
                               alignment: Alignment.center,
                               width: MediaQuery.sizeOf(context).width * 0.5,
-                              child: Row(
+                              child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(Icons.newspaper),
-                                  const SizedBox(width: 8),
+                                  SizedBox(width: 8),
                                   Tab(text: 'My feed'),
                                 ],
                               ),
@@ -119,11 +119,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             Container(
                               alignment: Alignment.center,
                               width: MediaQuery.sizeOf(context).width * 0.5,
-                              child: Row(
+                              child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(Icons.favorite),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 8,
                                   ),
                                   Tab(text: 'My Favorites'),
