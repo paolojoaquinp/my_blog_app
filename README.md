@@ -13,6 +13,35 @@ An app to watch the newest posts about the tech releases and innovations. Choose
 Splash Screen & Home Screen
 ![App Screenshot](./screenshots/screenshot-1.png)
 
+## Instructions
+
+#### Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/paolojoaquinp/my_blog_app
+```
+
+Go to the project directory
+
+```bash
+  cd my_blog_app
+```
+
+Install dependencies
+
+```bash
+  flutter pub get
+```
+
+Start the App
+
+```bash
+  flutter run -d <id-of-your-device-or-simulator>
+```
+
+
 
 ## Features
 
@@ -29,6 +58,24 @@ Splash Screen & Home Screen
 
 ![App Video Demo](./screenshots/video-demo-my-blog-app.gif)
 
+
+## Running Tests
+
+To run the unit tests, run the following command
+
+```bash
+  flutter test
+```
+
+## 🚀 About Me
+
+Experienced Software Engineer with a strong focus on Flutter, bringing over 4 years of expertise to the
+table. Distinguished as Flutter La Paz Lead, with notable contributions, including Staffing at Multiple
+events in GDG La Paz and Fluter La Paz. Acknowledged speaker at various events in Ecuador, Uruguay
+and Bolivia, such as Flutter Ecuador, Flutter Uruguay, DevFest and Google IO. Successfully lead the
+development of FireGuard LP, a robust platform of forest fire prevention in Flutter. Currently, a
+dedicated Flutter Developer for CAWU STCA, a Canadian Company. Proactive and solution-oriented,
+showcasing exceptional communication skills and leadership in managing small team projects.
 
 ## License
 
