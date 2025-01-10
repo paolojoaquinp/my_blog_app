@@ -21,11 +21,14 @@ class FavoritePostsInitialEvent extends FavoritesEvent {
 class AddFavoriteEvent extends FavoritesEvent {
   const AddFavoriteEvent({
     required this.idPost,
+    required this.onEnd,
   });
 
   final int idPost;
+  final VoidCallback onEnd;
+
   @override
-  List<Object> get props => [idPost];
+  List<Object> get props => [idPost, onEnd];
 }
 
 class LoadFavoritesEvent extends FavoritesEvent {

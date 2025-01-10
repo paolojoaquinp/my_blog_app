@@ -11,7 +11,8 @@ class AllPostsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AllPostsBloc>(
-      create: (context) => AllPostsBloc(postRepository: PostRepositoryImpl())..add(const AllPostsInitialEvent()),
+      create: (context) => AllPostsBloc(postRepository: PostRepositoryImpl())
+        ..add(const AllPostsInitialEvent()),
       child: const Scaffold(
         body: _Body(),
       ),
@@ -33,7 +34,8 @@ class _Body extends StatelessWidget {
         }
         if (state is AllPostsDataLoadedState) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.05),
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.sizeOf(context).width * 0.05),
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: state.postsResponse.length,
@@ -47,7 +49,16 @@ class _Body extends StatelessWidget {
                   child: PostCard(
                     post: post,
                     onPressed: () {
-                      favoritesBloc.add(AddFavoriteEvent(idPost: post.id));
+                      favoritesBloc.add(
+                        AddFavoriteEvent(
+                          idPost: post.id,
+                          onEnd: () {
+                            context
+                                .read<AllPostsBloc>()
+                                .add(const AllPostsLoadDataEvent());
+                          },
+                        ),
+                      );
                     },
                   ),
                 );

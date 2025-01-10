@@ -14,6 +14,7 @@ class AllPostsBloc extends Bloc<AllPostsEvent, AllPostsState> {
       // TODO: implement event handler
     });
     on<AllPostsInitialEvent>(_onAllPostsInitialEvent);
+    on<AllPostsLoadDataEvent>(_onAllPostsLoadDataEvent);
   }
 
   final PostRepository postRepository;
@@ -33,5 +34,26 @@ class AllPostsBloc extends Bloc<AllPostsEvent, AllPostsState> {
       },
       err: (err) => {emit(ErrorState(error: err.toString()))},
     );
+  }
+
+  Future<void> _onAllPostsLoadDataEvent(
+      AllPostsLoadDataEvent event, Emitter<AllPostsState> emit) async {
+    try {
+      final results = await postRepository.getAllPosts();
+      results.when(
+        ok: (data) {
+          if (data.isNotEmpty) {
+            emit(AllPostsDataLoadedState(postsResponse: data));
+          } else {
+            emit(const AllPostsEmptyDataState());
+          }
+        },
+        err: (err) {
+          emit(ErrorState(error: err.toString()));
+        },
+      );
+    } catch (e) {
+      emit(ErrorState(error: e.toString()));
+    }
   }
 }

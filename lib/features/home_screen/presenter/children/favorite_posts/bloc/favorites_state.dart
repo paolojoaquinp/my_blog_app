@@ -43,3 +43,14 @@ class FavoritesError extends FavoritesState {
   @override
   List<Object> get props => [message];
 }
+
+class FavoritesEmptyDataState extends FavoritesState {
+  const FavoritesEmptyDataState({
+    required this.message,
+  });
+
+  final String message;
+
+  @override
+  List<Object> get props => [message]; 
+}

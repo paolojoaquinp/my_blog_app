@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:my_blog_app/core/helpers/hive_helper.dart';
 import 'package:my_blog_app/features/home_screen/data/models/post_model.dart';
 import 'package:my_blog_app/features/home_screen/domain/repositories/post_repository.dart';
@@ -21,34 +22,33 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   final PostRepository postRepository;
   final HiveHelper hivePreferences;
-Future<void> _onFavoritePostsInitialEvent(FavoritePostsInitialEvent event, Emitter<FavoritesState> emit) async {
-  emit(FavoritePostsLoadingState());
+  Future<void> _onFavoritePostsInitialEvent(
+      FavoritePostsInitialEvent event, Emitter<FavoritesState> emit) async {
+    emit(const FavoritePostsLoadingState());
 
-  final resultsPosts = await postRepository.getAllPosts();
-  final ids = hivePreferences.getAllFavoriteIds();
+    final resultsPosts = await postRepository.getAllPosts();
+    final ids = hivePreferences.getAllFavoriteIds();
 
-  resultsPosts.when(
-    ok: (data) {
-      if (data.isNotEmpty) {
-        // Filtrar los posts que coincidan con los IDs favoritos
-        final favoritePosts = data.where((post) => ids.contains(post.id.toString())).toList();
+    resultsPosts.when(
+      ok: (data) {
+        if (ids.isNotEmpty) {
+          final favoritePosts =
+              data.where((post) => ids.contains(post.id.toString())).toList();
 
-        emit(FavoritesDataLoaded(
-          favoriteIds: ids,
-          favoritePosts: favoritePosts,
-        ));
-      } else {
-        // Emitir estado vacío si no hay datos
-        emit(const FavoritesDataLoaded(
-          favoriteIds: [],
-          favoritePosts: [],
-        ));
-      }
-    },
-    err: (err) => emit(FavoritesError(err.toString())),
-  );
-}
-
+          emit(FavoritesDataLoaded(
+            favoriteIds: ids,
+            favoritePosts: favoritePosts,
+          ));
+        } else {
+          emit(
+            const FavoritesEmptyDataState(
+                message: 'You don\'t have favorites yet'),
+          );
+        }
+      },
+      err: (err) => emit(FavoritesError(err.toString())),
+    );
+  }
 
   Future<void> _onLoadFavorites(
     LoadFavoritesEvent event,
@@ -57,27 +57,31 @@ Future<void> _onFavoritePostsInitialEvent(FavoritePostsInitialEvent event, Emitt
     try {
       emit(FavoritesLoading());
 
-      // Obtener los IDs de favoritos guardados
       final favoriteIds = hivePreferences.getAllFavoriteIds();
-
-      // Obtener todos los posts
       final allPostsResult = await postRepository.getAllPosts();
 
       allPostsResult.when(
-        ok: (data) {          
-          final favoritePosts =
-              data.where((post) => favoriteIds.contains(post.id)).toList();
+        ok: (data) {
+          if (favoriteIds.isNotEmpty) {
+            final favoritePosts = data
+                .where((post) => favoriteIds.contains(post.id.toString()))
+                .toList();
 
-          emit(FavoritesDataLoaded(
-            favoritePosts: favoritePosts,
-            favoriteIds: favoriteIds,
-          ));
+            emit(FavoritesDataLoaded(
+              favoritePosts: favoritePosts,
+              favoriteIds: favoriteIds,
+            ));
+          } else {
+            emit(
+              const FavoritesEmptyDataState(
+                  message: 'You don\'t have favorites yet'),
+            );
+          }
         },
         err: (err) => emit(
           FavoritesError(err.response.toString()),
         ),
       );
-      // Filtrar solo los posts favoritos
     } catch (e) {
       emit(FavoritesError(e.toString()));
     }
@@ -90,15 +94,14 @@ Future<void> _onFavoritePostsInitialEvent(FavoritePostsInitialEvent event, Emitt
     try {
       final favoriteIds = hivePreferences.getAllFavoriteIds();
 
-      if(favoriteIds.contains(event.idPost.toString())) {
-          // Remover de favoritos
-          await hivePreferences.removeFavorite(event.idPost.toString());
-        } else {
-          // Añadir a favoritos
-          await hivePreferences.addFavorite(event.idPost.toString());
-        
+      if (favoriteIds.contains(event.idPost.toString())) {
+        // Remover de favoritos
+        await hivePreferences.removeFavorite(event.idPost.toString());
+      } else {
+        // Añadir a favoritos
+        await hivePreferences.addFavorite(event.idPost.toString());
       }
-
+      event.onEnd();
     } catch (e) {
       emit(FavoritesError(e.toString()));
     }

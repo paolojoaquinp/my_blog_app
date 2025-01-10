@@ -11,3 +11,10 @@ class AllPostsInitialEvent extends AllPostsEvent {
   @override
   List<Object> get props => [];
 }
+
+class AllPostsLoadDataEvent extends AllPostsEvent {
+  const AllPostsLoadDataEvent();
+  
+  @override
+  List<Object> get props => [];
+}

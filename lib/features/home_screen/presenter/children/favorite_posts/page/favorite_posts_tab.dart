@@ -37,11 +37,16 @@ class _Body extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
+        if (state is FavoritesEmptyDataState) {
+          return Center(child: Text(state.message),);
+        }
         if (state is FavoritesDataLoaded) {
           return Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.sizeOf(context).width * 0.05),
             child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.zero,
               itemCount: state.favoritePosts.length ,
               itemBuilder: (context, index) {
                 final post = state.favoritePosts[index];
@@ -52,7 +57,9 @@ class _Body extends StatelessWidget {
                   child: PostCard(
                     post: post,
                     onPressed: () {
-                      favoritesBloc.add(AddFavoriteEvent(idPost: post.id));
+                      favoritesBloc.add(AddFavoriteEvent(idPost: post.id, onEnd: () {
+                        favoritesBloc.add(const LoadFavoritesEvent());
+                      }));
                     },
                   ),
                 );
