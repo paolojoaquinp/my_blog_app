@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_blog_app/features/home_screen/data/datasources/api/post_repository_impl.dart';
 import 'package:my_blog_app/features/home_screen/presenter/children/all_posts/bloc/all_posts_bloc.dart';
-import 'package:my_blog_app/features/home_screen/presenter/children/all_posts/widgets/post_card/post_card.dart';
+import 'package:my_blog_app/features/shared/widgets/post_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AllPostsTab extends StatelessWidget {
