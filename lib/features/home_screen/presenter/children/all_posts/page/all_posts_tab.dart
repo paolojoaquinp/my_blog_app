@@ -42,7 +42,7 @@ class _Body extends StatelessWidget {
                 final post = state.postsResponse[index];
                 final favoritesBloc = context.read<FavoritesBloc>();
                 return SizedBox(
-                  height: 500,
+                  height: 510,
                   width: double.maxFinite,
                   child: PostCard(
                     post: post,

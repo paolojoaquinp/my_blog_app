@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_blog_app/core/config/text_theme.dart';
+import 'package:my_blog_app/core/constants/app_strings.dart';
 import 'package:my_blog_app/core/helpers/hive_helper.dart';
 import 'package:my_blog_app/features/home_screen/data/datasources/api/post_repository_impl.dart';
 import 'package:my_blog_app/features/home_screen/presenter/children/favorite_posts/bloc/favorites_bloc.dart';
@@ -41,7 +43,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const expandedHeight = 120.0;
-
+    final customTextTheme = textTheme;
     return SafeArea(
       child: NotificationListener<ScrollNotification>(
         onNotification: (notification) {
@@ -69,7 +71,7 @@ class _Body extends StatelessWidget {
                       duration: const Duration(milliseconds: 100),
                       child: Container(
                         width: double.maxFinite,
-                        height: lerpDouble(110.0, 0.0, scrollFactor),
+                        height: lerpDouble(120.0, 0.0, scrollFactor),
                         color: Colors.transparent,
                         clipBehavior: Clip.none,
                         child: Column(
@@ -77,13 +79,12 @@ class _Body extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Blog',
-                              style: Theme.of(context)
-                                  .textTheme
+                              AppStrings.appBarTitle,
+                              style: customTextTheme
                                   .headlineLarge!
                                   .copyWith(
-                                    fontSize:
-                                        lerpDouble(32.0, 0.0, scrollFactor),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: lerpDouble(35.0, 0.0, scrollFactor),
                                   ),
                             ),
                             Transform.translate(
@@ -94,11 +95,11 @@ class _Body extends StatelessWidget {
                               child: Opacity(
                                 opacity: lerpDouble(1.0, 0.0, scrollFactor)!,
                                 child: Text(
-                                  'My Blog app',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge!
+                                  AppStrings.appBarSubtitle,
+                                  style: customTextTheme
+                                      .labelSmall!
                                       .copyWith(
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 14.0,
                                       ),
                                 ),
@@ -134,26 +135,26 @@ class _Body extends StatelessWidget {
                             Container(
                               alignment: Alignment.center,
                               width: MediaQuery.sizeOf(context).width * 0.5,
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.newspaper),
-                                  SizedBox(width: 8),
-                                  Tab(text: 'My feed'),
+                                  const Icon(Icons.newspaper),
+                                  const SizedBox(width: 8),
+                                  Tab(text: AppStrings.tabBarFeedTitle),
                                 ],
                               ),
                             ),
                             Container(
                               alignment: Alignment.center,
                               width: MediaQuery.sizeOf(context).width * 0.5,
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.favorite),
-                                  SizedBox(
+                                  const Icon(Icons.favorite),
+                                  const SizedBox(
                                     width: 8,
                                   ),
-                                  Tab(text: 'My Favorites'),
+                                  Tab(text: AppStrings.tabBarFavoritesTitle),
                                 ],
                               ),
                             ),

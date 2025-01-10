@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_blog_app/core/constants/app_colors.dart';
 import 'package:my_blog_app/features/home_screen/data/models/post_model.dart';
 
 class PostCard extends StatelessWidget {
@@ -16,7 +17,7 @@ class PostCard extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         color: Colors.transparent,
-        margin: EdgeInsets.only(bottom: 20),
+        margin: const EdgeInsets.only(bottom: 20),
         width: double.infinity,
         height: double.infinity,
         child: Card(
@@ -45,7 +46,7 @@ class PostCard extends StatelessWidget {
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: AppColors.midnightBlue,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: const Text(
@@ -61,10 +62,11 @@ class PostCard extends StatelessWidget {
                               onPressed: onPressed,
                               icon: Icon(
                                 post.isFavorite!
-                                ? Icons.favorite
-                                : Icons.favorite_outline,
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
                                 color: post.isFavorite!
-                                ? Colors.red : Colors.black,
+                                    ? Colors.red
+                                    : Colors.black,
                               ),
                             ),
                           ],
@@ -84,22 +86,17 @@ class PostCard extends StatelessWidget {
                           maxLines: 4,
                           softWrap: true,
                         ),
-                        Container(
-                          width: double.maxFinite,
-                          height: constraints.maxHeight * 0.2,
-                          child: Text(
-                            post.body,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  fontWeight: FontWeight.w300,
-                                ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
-                          ),
+                        Text(
+                          post.body,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                fontWeight: FontWeight.w300,
+                              ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
                         ),
-                        Spacer(),
                         TextButton.icon(
                           onPressed: () {},
                           label: Text(
@@ -108,14 +105,14 @@ class PostCard extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       letterSpacing: 0,
-                                      color: Colors.blue,
+                                      color: AppColors.byzantineBlue,
                                       fontWeight: FontWeight.w500,
                                     ),
                           ),
                           icon: Icon(
                             Icons.arrow_right_alt_outlined,
                             size: 28.0,
-                            color: Colors.blue,
+                            color: AppColors.byzantineBlue,
                           ),
                           iconAlignment: IconAlignment.end,
                           style: TextButton.styleFrom(
@@ -132,11 +129,24 @@ class PostCard extends StatelessWidget {
                   height: constraints.maxHeight * 0.35,
                   width: constraints.maxWidth,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                    child: Image.network(
-                      'https://picsum.photos/250?image=9',
-                      fit: BoxFit.cover,
-                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                    child: Image.network('https://picsum.photos/250?image=9',
+                        fit: BoxFit.cover, loadingBuilder:
+                            (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    (loadingProgress.expectedTotalBytes ?? 1)
+                                : null, // Progreso indeterminado si no se conocen los bytes totales
+                          ),
+                        );
+                      }
+                    }),
                   ),
                 ),
               ],
