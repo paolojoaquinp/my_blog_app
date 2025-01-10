@@ -42,13 +42,18 @@ class _Body extends StatelessWidget {
                 return SizedBox(
                   height: 500,
                   width: double.maxFinite,
-                  child: PostCard(post: post),
+                  child: PostCard(
+                    post: post,
+                    onPressed: () {},
+                  ),
                 );
               },
             ),
           );
         } else {
-          return SizedBox.shrink();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
       },
     );

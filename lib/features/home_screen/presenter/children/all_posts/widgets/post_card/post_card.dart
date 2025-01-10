@@ -5,9 +5,11 @@ class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
     required this.post,
+    required this.onPressed,
   });
 
   final PostModel post;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +36,29 @@ class PostCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // chip
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            "Community",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Text(
+                                "Community",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
                             ),
-                          ),
+                            IconButton(onPressed: onPressed, icon: Icon(Icons.favorite_outline),),
+                          ],
                         ),
                         SizedBox(
                           height: constraints.maxHeight * 0.02,

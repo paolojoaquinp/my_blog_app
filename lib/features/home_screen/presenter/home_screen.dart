@@ -1,7 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:my_blog_app/features/home_screen/presenter/widgets/bubble_tab_indicator.dart';
 import 'package:my_blog_app/features/home_screen/presenter/widgets/tab_views.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
               if (notification is ScrollUpdateNotification &&
                   notification.depth == 0) {
                 setState(() {
-                  _scrollFactor = (notification.metrics.pixels / 120.0)
-                      .clamp(0.0, 1.0);
+                  _scrollFactor =
+                      (notification.metrics.pixels / 120.0).clamp(0.0, 1.0);
                 });
               }
               return true;
@@ -58,7 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .textTheme
                                   .headlineLarge!
                                   .copyWith(
-                                    fontSize: lerpDouble(32.0, 0.0, _scrollFactor),
+                                    fontSize:
+                                        lerpDouble(32.0, 0.0, _scrollFactor),
                                   ),
                             ),
                             Transform.translate(
@@ -88,24 +88,48 @@ class _HomeScreenState extends State<HomeScreen> {
                     snap: true,
                     floating: true,
                     bottom: PreferredSize(
-                      preferredSize: const Size.fromHeight(48.0), // Reducido de kToolbarHeight
+                      preferredSize: const Size.fromHeight(48.0),
                       child: Container(
-                        height: 48.0, // Altura fija para el TabBar
+                        height: 48.0,
                         color: Colors.white,
-                        child: const TabBar(
-                          labelPadding: EdgeInsets.zero, // Eliminamos el padding del label
-                          padding: EdgeInsets.zero, // Eliminamos el padding del TabBar
-                          indicator: UnderlineTabIndicator(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 2.0,
-                            ),
+                        child: TabBar(
+                          labelPadding:
+                              const EdgeInsets.symmetric(horizontal: 16),
+                          indicator: BubbleTabIndicator(
+                            color: Colors.black,
+                            height: 35,
+                            radius: 20,
+                            padding: const EdgeInsets.symmetric(horizontal: 1),
                           ),
-                          labelColor: Colors.black,
-                          unselectedLabelColor: Colors.grey,
+                          labelColor: Colors.white,
+                          unselectedLabelColor: Colors.black,
                           tabs: [
-                            Tab(text: 'My feed'),
-                            Tab(text: 'My Favorites'),
+                            Container(
+                              alignment: Alignment.center,
+                              width: MediaQuery.sizeOf(context).width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.newspaper),
+                                  const SizedBox(width: 8),
+                                  Tab(text: 'My feed'),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: MediaQuery.sizeOf(context).width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.favorite),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Tab(text: 'My Favorites'),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
