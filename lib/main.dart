@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_blog_app/core/config/splash_screen.dart';
 import 'package:my_blog_app/core/helpers/hive_helper.dart';
 import 'package:my_blog_app/features/home_screen/presenter/home_screen.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }
