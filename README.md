@@ -3,7 +3,7 @@
 
 An app to watch the newest posts about the tech releases and innovations. Choose your favorite post save it to read anytime and anywhere with an interactive interface.
 
-## We used Flutter to build this App
+## We use Flutter to build this App
 
 - Flutter 3.24
 - Dart 3.5
